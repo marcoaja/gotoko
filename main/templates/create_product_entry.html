@@ -1,0 +1,112 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  textarea {
+    resize: none;
+    background-color: transparent;
+    border: solid 1px #2e1065;
+    border-radius: 8px;
+    padding: 6px;
+  }
+
+  textarea:focus {
+    outline: none;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  body {
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ede9fe;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .form-container {
+    padding: 40px 20px 40px 20px;
+    border-radius: 1rem;
+    color: #2e1065;
+    background-color: #ded7fb;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  }
+
+  input {
+    background-color: transparent;
+    border: solid 1px #2e1065;
+    border-radius: 8px;
+    padding: 6px;
+    color: #2e1065;
+  }
+
+  .add-product {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 1px;
+    transform: translateX(-1px) translateY(-1px);
+  }
+
+  .add-product:hover {
+    color: #ded7fb;
+    background-color: #2e1065;
+    transition: all 100ms;
+  }
+
+  .add-product:active {
+    transform: translateY(1px);
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+</style>
+<div class="container">
+  <div class="form-container">
+    <p><a href="http://127.0.0.1:8000/">&lt;&lt; back to home</a></p>
+    <h1>Add New Product</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+        <tr>
+          <td></td>
+          <td>
+            <input class="add-product" type="submit" value="Add Product" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+{% endblock %}
