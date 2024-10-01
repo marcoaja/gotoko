@@ -1,0 +1,83 @@
+<nav class="bg-violet-950 shadow-lg fixed top-0 right-0 z-40 w-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <h1 class="text-3xl p-4 font-black text-center text-white">GOTOKO.</h1>
+      </div>
+      <div class="hidden md:flex items-center">
+        {% if user.is_authenticated %}
+          <p class="text-white mr-4 text-lg">Selamat Datang, <span class="font-bold">{{ user.username }}</span></p>
+          <a href="{% url 'main:logout' %}" class="text-center bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+            Logout
+          </a>
+        {% else %}
+          <a href="{% url 'main:login' %}" class="text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mr-2">
+            Login
+          </a>
+          <a href="{% url 'main:register' %}" class="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+            Register
+          </a>
+        {% endif %}
+      </div>
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button">
+          <svg class="w-6 h-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div class="fixed mobile-menu hidden md:hidden h-screen w-1/2 right-0 bg-[#2e1065] px-4 md:max-h-full shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+    <div class="flex flex-col justify-between h-[90%] pt-2 pb-3 space-y-1 mx-auto">
+      {% if user.is_authenticated %}
+      <div class="space-y-4">
+        <div>
+        <p class="text-white mr-4 text-lg">Selamat Datang, <span class="font-bold">{{ user.username }}</span></p>
+        </div>
+        <div>
+          <a href="/">
+            <button
+              class="add-product w-full border-l-2 border-white py-2 px-4 font-medium text-white text-left rounded-r-lg hover:text-violet-950 hover:bg-white duration-300 active:translate-y-0 active:shadow-none cursor"
+            >
+              Home
+            </button>
+          </a>
+        </div>
+        <div>
+          <a href="{% url 'main:create_product_entry' %}">
+            <button
+              class="add-product w-full border-l-2 border-white py-2 px-4 font-medium text-white text-left rounded-r-lg hover:text-violet-950 hover:bg-white duration-300 active:translate-y-0 active:shadow-none cursor"
+            >
+              + Add New Product
+            </button>
+          </a>
+        </div>
+      </div>
+      <div>
+        <a href="{% url 'main:logout' %}" class="block bottom-0 text-center bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+          Logout
+        </a>
+      </div>
+    {% else %}
+      <a href="{% url 'main:login' %}" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2">
+        Login
+      </a>
+      <a href="{% url 'main:register' %}" class="block text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+        Register
+      </a>
+    {% endif %}
+    </div>
+  </div>
+  <script>
+    let isHidden = true;
+    const btn = document.querySelector(".mobile-menu-button");
+    const menu = document.querySelector(".mobile-menu");
+    const closeToggle = document.querySelector(".close-toggle")
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+      isHidden = !isHidden;
+    });
+  </script>
+</nav>

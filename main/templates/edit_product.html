@@ -1,21 +1,19 @@
 {% extends 'base.html' %} {% load static %} {% block meta %}
-<title>Create Product</title>
-{% endblock meta %} {% block content %} {% include 'navbar.html' %}
-
+<title>Edit Product</title>
+{% endblock meta %} {% block content %}
 <div class="flex flex-col min-h-screen bg-gradient-to-r from-violet-100 via-violet-300 to-violet-600">
   <div class="container mx-auto px-4 py-8 mt-16 max-w-xl">
-    <h1 class="text-3xl text-violet-950 font-bold text-center mb-8 text-black">
-      Create Product Entry
-    </h1>
+    <h1 class="text-3xl font-bold text-center mb-8 text-violet-950">Edit Product</h1>
 
-    <div class="bg-white shadow-md rounded-lg p-6 form-style">
+    <div class="bg-white rounded-lg p-6 form-style">
       <button class="bg-violet-950 rounded-md p-1">
         <a href="/">
-          <svg fill="#fff" height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve"  ><polygon points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "/></svg>
+          <svg fill="#fff" height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" ><polygon points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "/></svg>
         </a>
       </button>
       <form method="POST" class="space-y-6">
-        {% csrf_token %} {% for field in form %}
+        {% csrf_token %} 
+        {% for field in form %}
         <div class="flex flex-col">
           <label
             for="{{ field.id_for_label }}"
@@ -36,12 +34,11 @@
             type="submit"
             class="bg-violet-950 text-white font-semibold px-6 py-3 rounded-lg hover:bg-violet-700 transition duration-300 ease-in-out w-full"
           >
-            Create Product Entry
+            Edit Mood Entry
           </button>
         </div>
       </form>
     </div>
   </div>
 </div>
-
 {% endblock %}

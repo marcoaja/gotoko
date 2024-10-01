@@ -2,12 +2,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% block meta %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% block meta %} {% endblock meta %}
+    {% endblock meta %}
+    <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cwhite: '#ECE8DF',
+              cblue: '#424475',
+              cred: '#E56F6F',
+            },
+            fontFamily: {
+                'onest': ['Onest', 'serif', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
   </head>
 
-  <body>
+  <body class="font-onest">
     {% block content %} {% endblock content %}
   </body>
 </html>

@@ -2,81 +2,10 @@
 <title>Login</title>
 {% endblock meta %} {% block content %}
 <style>
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  * {
-    margin: 0;
-  }
-
   body {
     height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
     background-color: white;
     color: #2e1065;
-  }
-
-  .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .left-side {
-    width: 100%;
-    height: 100vh;
-    padding: 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .title {
-    padding: 16px;
-  }
-
-  span {
-    padding: 8px;
-    background-color: #ede9fe;
-    border-radius: 7px;
-    font-weight: 900;
-  }
-
-  .desc {
-    border-left: 2px solid #2e1065;
-    padding-left: 8px;
-  }
-
-  .right-side {
-    width: 100%;
-    height: 100vh;
-    background-color: #ede9fe;
-    padding: 100px;
-    border-radius: 50px 0 0 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  }
-
-  .login {
-    padding: 16px;
-    display: grid;
-    gap: 10px;
-  }
-
-  .btn {
-    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 1px;
-    transform: translateX(-1px) translateY(-1px);
-  }
-
-  .btn:hover {
-    color: #ded7fb;
-    background-color: #2e1065;
-    transition: all 100ms;
   }
 
   input {
@@ -88,29 +17,48 @@
   }
 </style>
 
-<div class="container">
-  <div class="left-side">
-    <h1 class="title">SELAMAT DATANG DI <span>GOTOKO</span></h1>
-    <p class="desc">
+<div class="grid grid-cols-1 md:grid-cols-2">
+  {% comment %} Left Side {% endcomment %}
+  <div class="hidden md:flex w-full h-screen p-2 flex-col justify-between items-center">
+    <div class="p-8 mt-4 text-center">
+      <h1 class="p-1 md:text-2xl lg:text-4xl font-black">
+        SELAMAT DATANG DI
+      </h1>
+      <h1 class="p-1 md:text-5xl lg:text-7xl  bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent rounded-lg font-[900]">GOTOKO</h1>
+    </div>
+   <div class="p-8">
+    <p class="border-violet-950 border-l-[2px] p-2 m-4 text- font-semibold">
       Gotoko is an e-commerce platform that connects small and medium-sized
       retailers with suppliers, streamlining the process of purchasing goods. It
       offers a wide range of products, including daily essentials, groceries,
       and household items.
     </p>
+   </div>
   </div>
-  <div class="right-side">
-    <div class="login">
-      <h1>Login</h1>
-
-      <form method="POST" action="">
+  {% comment %} Right Side {% endcomment %}
+  <div
+    class="w-full h-screen flex justify-center items-center p-8 md:rounded-l-[48px] bg-gradient-to-r from-violet-100 via-violet-400 to-violet-700 shadow-lg"
+    >
+    <div class="grid p-1 gap-3 bg-violet-50 px-8 py-16 rounded-lg">
+      <h1 class="font-bold text-4xl">LOGIN</h1>
+      <form method="POST" action="" class="w-[300px] space-y-2">
         {% csrf_token %}
-        <table>
-          {{ form.as_table }}
-          <tr>
-            <td></td>
-            <td><input class="btn login_btn" type="submit" value="Login" /></td>
-          </tr>
-        </table>
+        <input type="hidden" name="remember" value="true">
+        <div class="rounded-md shadow-sm space-y-2">
+          <div>
+            <label for="username" class="sr-only">Username</label>
+            <input id="username" name="username" type="text" required class="appearance-none rounded-lg relative block w-full text-sm lg:text-lg px-3 py-2 border-2 border-violet-900 placeholder-gray-500 text-gray-900 rounded-t-md focus:border-[3px] focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10" placeholder="Username">
+          </div>
+          <div>
+            <label for="password" class="sr-only">Password</label>
+            <input id="password" name="password" type="password" required class="appearance-none rounded-lg relative block w-full text-sm lg:text-lg px-3 py-2 border-2 border-violet-900 placeholder-gray-500 text-gray-900 rounded-b-md focus:border-[3px] focus:outline-none focus:ring-violet-500 focus:border-violet-500 focus:z-10 sm:text-sm" placeholder="Password">
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-900 hover:bg-violet-800 focus:outline-none focus:bg-violet-700 ">
+            Sign in
+          </button>
+        </div>
       </form>
 
       {% if messages %}
@@ -119,8 +67,9 @@
         <li>{{ message }}</li>
         {% endfor %}
       </ul>
-      {% endif %} Don't have an account yet?
-      <a href="{% url 'main:register' %}">Register</a>
+      {% endif %}
+      
+      <p>Don't have an account yet? <a class="font-semibold text-violet-700/50 hover:text-violet-700 duration-300" href="{% url 'main:register' %}">Register</a></p>
     </div>
   </div>
 </div>

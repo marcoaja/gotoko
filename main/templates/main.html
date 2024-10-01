@@ -1,18 +1,14 @@
-{% extends 'base.html' %} {% block content %} {% block css %}
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block meta %}
+<title>Gotoko</title>
+{% endblock meta %}
+{% block content %} 
+{% block css %}
 <style>
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  * {
-    margin: 0;
-  }
-
   body {
     height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
     background-color: #ede9fe;
   }
 
@@ -20,225 +16,105 @@
     font-weight: 700;
     font-size: 1.5rem;
   }
-  span {
-    font-weight: 500;
-  }
-
-  .container {
-    min-height: 100vh;
-    max-width: 640px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    width: 100%;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 1rem;
-    color: #2e1065;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-      0 4px 6px -4px rgb(0 0 0 / 0.1);
-  }
-
-   {
-    font-weight: 400;
-  }
-
-  .main {
-    margin-top: 5rem;
-  }
-
-  .welcome-container {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .welcome {
-    color: #2e1065;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .products-section {
-    margin-top: 5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    width: 1080px;
-    margin-left: auto;
-    margin-right: auto;
-    color: #2e1065;
-  }
-
-  .product-card {
-    width: 250px;
-    height: 350px;
-    background-color: white;
-    padding: 20px 15px 20px 15px;
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  }
-
-  .product-card:hover {
-    transform: translateY(-8px);
-    transition-duration: 300ms;
-    background-color: #fbfbfb;
-  }
-
-  .product-content {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .gambar {
-    width: 100%;
-    height: 150px;
-    border-radius: 1rem;
-    background-color: #ede9fe;
-  }
-
-  .add-product {
-    appearance: none;
-    background-color: transparent;
-    border: 2px solid #2e1065;
-    border-radius: 15px;
-    box-sizing: border-box;
-    color: #2e1065;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: normal;
-    margin: 0;
-    min-height: 60px;
-    min-width: 0;
-    outline: none;
-    padding: 16px 24px;
-    text-align: center;
-    text-decoration: none;
-    transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: 100%;
-    will-change: transform;
-  }
-
-  .add-product:hover {
-    color: white;
-    background-color: #2e1065;
-    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-    transform: translateX(-1px) translateY(-2px);
-  }
-
-  .add-product:active {
-    box-shadow: none;
-    transform: translateY(0);
-  }
-
-  span {
-    color: #ede9fe;
-    font-weight: bold;
-    padding: 10px;
-    background-color: #2e1065;
-    border-radius: 1rem;
-  }
-
-  .appname {
-    font-weight: 900;
-  }
-
-  .footer {
-    bottom: 0;
-    width: 100%;
-    height: 3rem;
-    background-color: white;
-    font-weight: 700;
-    padding: 2rem;
-    margin-top: 10rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    color: #2e1065;
-  }
-
-  .logout {
-    appearance: none;
-    background-color: transparent;
-    padding: 5px 10px 5px 10px;
-    border: 2px solid #2e1065;
-    border-radius: 7px;
-    cursor: pointer;
-  }
-
-  .logout:hover {
-    background-color: #2e1065;
-    color: #ede9fe;
-    transition: all 300ms;
-  }
-
-  @media (min-width: 1280px) {
-    .container {
-      max-width: 1280px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
 </style>
 {% endblock css%}
-<div class="container">
-  <div class="navbar">
-    <div class="left-nav">
-      <h1 class="appname">{{appname}}</h1>
-    </div>
-    <div class="right-nav">
-      <h4>{{name}}</h4>
-      <h4>{{class}}</h4>
-    </div>
-  </div>
-
-  <div class="main">
-    <div class="welcome-container">
-      <div class="welcome">
-        <h1>Halo! {{name}}, Selamat datang di <span>{{appname}}</span></h1>
+<div class="container mx-auto min-h-screen max-w-[1280px]">
+  {% include 'navbar.html' %}
+  <div class="main mt-20">
+    <div class="welcome-container flex flex-col sm:flex-row md:flex-row justify-between p-8 gap-y-8">
+      <div class="welcome flex flex-col gap-2 text-violet-950 font-semibold">
+        <h1>
+          Halo! {{name}}, Selamat datang di
+          <span class="text-2xl font-black bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent px-2"
+            >{{appname}}</span
+          >
+        </h1>
         <p>Silakan pilih barang kesukaanmu!</p>
-        <a href="{% url 'main:logout' %}">
-          <button class="logout">Logout</button>
-        </a>
       </div>
       <div>
         <a href="{% url 'main:create_product_entry' %}">
-          <button class="add-product">+ Add New Product</button>
+          <button
+            class="add-product w-48 text-violet-950  border-2 border-violet-950 py-2 px-4 rounded-2xl hover:text-white hover:bg-violet-950 shadow-[0_8px_15px_rgba(0, 0, 0, 0.25)] hover:-translate-x-px hover:-translate-y-[2px] hover:duration-300 active:translate-y-0 active:shadow-none cursor"
+          >
+            + Add New Product
+          </button>
         </a>
       </div>
     </div>
-    <div class="products-section">
+    {% comment %} Show All Products {% endcomment %}
+    <div class="mt-8 space-y-8">
+      <h1 class="text-center font-bold text-2xl text-violet-950">All Products</h1>
+      {% comment %} Jika tidak ada products {% endcomment %}
+      {% if not mood_entries %}
+      <div class="flex flex-col items-center justify-center p-6">
+          <img src="{% static 'image/noproduct.png' %}" alt="Sad face" width="500" height="500" loading="lazy"/>
+          <p class="text-center text-violet-950/80 text-lg md:text-xl font-lg mt-4">Belum ada product yang tersedia.</p>
+      </div>
+      {% comment %} Jika ada products {% endcomment %}
+      {% else %}
+      <div
+      class="products-section mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center p-4 gap-4 self-center text-violet-950 font-semibold">
       {% for product in products %}
-      <div class="product-card">
-        <div class="gambar"></div>
-        <div class="product-content">
-          <h2>{{product.name}}</h2>
-          <p>Price: {{product.price}}</p>
-        </div>
-        <div class="product-footer">Stock: {{product.stock}}</div>
+      <div
+        class="product-card flex flex-col justify-between w-[225px] h-[275px] md:w-[250px] md:h-[300px] lg:w-[300px] lg:h-[350px] bg-white py-[20px] px-[15px] rounded-2xl shadow-[0_4px_6px_-1px_rgb(0 0 0 / 0.1), 0_2px_4px_-2px_rgb(0 0 0 / 0.1)] hover:-translate-y-[8px] duration-300 bg-[#fbfbfb]"
+      >
+          <div
+            class="gambar w-full h-[100px] lg:h-[150px] rounded-2xl bg-violet-500"
+          ></div>
+          <div class="product-content flex flex-col gap-1">
+            <h2>{{ product.name }}</h2>
+            <p class="font-normal">Price: {{ product.price }}</p>
+            <p class="font-normal">Stock: {{ product.stock}}</p>
+          </div>
+          <div class="product-footer flex gap-2 flex justify-end">
+            {% comment %} Edit Button {% endcomment %}
+            <button class="p-1 rounded-lg bg-violet-950 w-fit hover:bg-violet-900 duration-300">
+              <a href="{% url 'main:edit_product' product.pk %}">
+                <svg
+                  x="0px"
+                  y="0px"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 48 48"
+                  fill="#fff"
+                >
+                  <path
+                    d="M 36 5.0097656 C 34.205301 5.0097656 32.410791 5.6901377 31.050781 7.0507812 L 8.9160156 29.183594 C 8.4960384 29.603571 8.1884588 30.12585 8.0253906 30.699219 L 5.0585938 41.087891 A 1.50015 1.50015 0 0 0 6.9121094 42.941406 L 17.302734 39.974609 A 1.50015 1.50015 0 0 0 17.304688 39.972656 C 17.874212 39.808939 18.39521 39.50518 18.816406 39.083984 L 40.949219 16.949219 C 43.670344 14.228094 43.670344 9.7719064 40.949219 7.0507812 C 39.589209 5.6901377 37.794699 5.0097656 36 5.0097656 z M 36 7.9921875 C 37.020801 7.9921875 38.040182 8.3855186 38.826172 9.171875 A 1.50015 1.50015 0 0 0 38.828125 9.171875 C 40.403 10.74675 40.403 13.25325 38.828125 14.828125 L 36.888672 16.767578 L 31.232422 11.111328 L 33.171875 9.171875 C 33.957865 8.3855186 34.979199 7.9921875 36 7.9921875 z M 29.111328 13.232422 L 34.767578 18.888672 L 16.693359 36.962891 C 16.634729 37.021121 16.560472 37.065723 16.476562 37.089844 L 8.6835938 39.316406 L 10.910156 31.521484 A 1.50015 1.50015 0 0 0 10.910156 31.519531 C 10.933086 31.438901 10.975086 31.366709 11.037109 31.304688 L 29.111328 13.232422 z"
+                  ></path>
+                </svg>
+              </a>
+            </button>
+            {% comment %} Delete Button {% endcomment %}
+            <button class="p-1 rounded-lg bg-violet-950 w-fit hover:bg-violet-900 duration-300">
+              <a href="{% url 'main:delete_product' product.pk %}">
+                <svg
+                  x="0px"
+                  y="0px"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="#fff"
+                >
+                  <path
+                    d="M 10 2 L 9 3 L 4 3 L 4 5 L 5 5 L 5 20 C 5 20.522222 5.1913289 21.05461 5.5683594 21.431641 C 5.9453899 21.808671 6.4777778 22 7 22 L 17 22 C 17.522222 22 18.05461 21.808671 18.431641 21.431641 C 18.808671 21.05461 19 20.522222 19 20 L 19 5 L 20 5 L 20 3 L 15 3 L 14 2 L 10 2 z M 7 5 L 17 5 L 17 20 L 7 20 L 7 5 z M 9 7 L 9 18 L 11 18 L 11 7 L 9 7 z M 13 7 L 13 18 L 15 18 L 15 7 L 13 7 z"
+                  ></path>
+                </svg>
+              </a>
+            </button>
+          </div>
       </div>
       {% endfor %}
+      </div>
+      {% endif %}
+     
     </div>
+    {% comment %} End of Show All Products {% endcomment %}
   </div>
 </div>
-<div class="footer">
-  <p>Sesi terakhir login: {{ last_login|slice:":19" }}</p>
-  <p>&copy; 2024 gotoko.com</p>
+<div
+  class="footer bottom-0 mt-40 w-full h-12 flex flex-col sm:flex-row justify-center items-center gap-2 text-violet-950 font-semibold p-8 bg-white"
+>
+  <p>Sesi terakhir login: {{ last_login|slice:":19" }} </p>
+  <p><span class="hidden sm:inline">|</span> &copy; 2024 gotoko.com</p>
 </div>
 {% endblock content %}

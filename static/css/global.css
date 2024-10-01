@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap");
+
+.form-style form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #bcbcbc;
+  border-radius: 0.375rem;
+  background-color: transparent;
+}
+
+.form-style form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: #674ea7;
+  box-shadow: 0 0 0 3px #674ea7;
+}
+

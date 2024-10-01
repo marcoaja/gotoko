@@ -1,85 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {% block meta %}
 <title>Register</title>
 {% endblock meta %} 
-
 {% block content %}
 <style>
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  * {
-    margin: 0;
-  }
-
   body {
     height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
     background-color: white;
     color: #2e1065;
-  }
-
-  .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .left-side {
-    width: 100%;
-    height: 100vh;
-    padding: 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .title {
-    padding: 16px;
-  }
-
-  .appname {
-    padding: 8px;
-    background-color: #ede9fe;
-    border-radius: 7px;
-    font-weight: 900;
-  }
-
-  .desc {
-    border-left: 2px solid #2e1065;
-    padding-left: 8px;
-  }
-
-  .right-side {
-    width: 100%;
-    height: 100vh;
-    background-color: #ede9fe;
-    padding: 100px;
-    border-radius: 50px 0 0 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
-  }
-
-  .register {
-    padding: 16px;
-    display: grid;
-    gap: 10px;
-  }
-
-  .btn {
-    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 1px;
-    transform: translateX(-1px) translateY(-1px);
-  }
-
-  .btn:hover {
-    color: #ded7fb;
-    background-color: #2e1065;
-    transition: all 100ms;
   }
 
   input {
@@ -89,47 +17,67 @@
     padding: 6px;
     color: #2e1065;
   }
-
-  
-  th {
-    vertical-align: top;
-    text-align: left;
-  }
-
-  td {
-    padding-left: 12px;
-  }
-
-
-
-
-
 </style>
 
-
-<div class="container">
-  <div class="left-side">
-    <h1 class="title">SELAMAT DATANG DI <span class="appname">GOTOKO</span></h1>
-    <p class="desc">
-      Gotoko is an e-commerce platform that connects small and medium-sized retailers with suppliers, streamlining the process of purchasing goods. It offers a wide range of products, including daily essentials, groceries, and household items.</p> 
+<div class="grid grid-cols-1 md:grid-cols-2">
+  {% comment %} Left Side {% endcomment %}
+  <div class="hidden md:flex w-full h-screen p-2 flex-col justify-between items-center">
+    <div class="p-8 mt-4 text-center">
+      <h1 class="p-1 md:text-2xl lg:text-4xl  font-black">
+        SELAMAT DATANG DI
+      </h1>
+      <h1 class="p-1 md:text-5xl lg:text-7xl bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent rounded-lg font-[900]">GOTOKO</h1>
+    </div>
+    <div class="p-8">
+      <p class="border-[#2e1065] border-l-[2px] p-2 m-4 md:text-sm lg:text-base font-semibold">
+        Gotoko is an e-commerce platform that connects small and medium-sized
+        retailers with suppliers, streamlining the process of purchasing goods. It
+        offers a wide range of products, including daily essentials, groceries,
+        and household items.
+      </p>
+    </div>
   </div>
-  <div class="right-side">
-    <div class="register">
-      <h1>Register</h1>
-    
-      <form method="POST">
+  {% comment %} Right Side {% endcomment %}
+  <div
+  class="w-full h-screen flex justify-center items-center p-8 md:rounded-l-[48px] bg-gradient-to-r from-violet-100 via-violet-400 to-violet-700 shadow-lg"
+  >
+    <div class="grid p-1 gap-3 bg-violet-50 px-8 py-16 rounded-lg">
+      <h1 class="font-bold text-4xl">REGISTER</h1>
+      <form method="POST" class="w-[300px] space-y-2">
         {% csrf_token %}
-        <table>
-          {{ form.as_table }}
-          <tr>
-            <td></td>
-            <td>
-              <input class="btn" type="submit" name="submit" value="Daftar" />
-            </td>
-          </tr>
-        </table>
+        <input type="hidden" name="remember" value="true">
+        <div class="rounded-md shadow-sm space-y-2">
+          {% for field in form %}
+            <div class="{% if not forloop.first %}mt-4{% endif %}">
+              <label for="{{ field.id_for_label }}" class="mb-2 font-semibold text-violet-950">
+                {{ field.label }}
+              </label>
+              <div class="relative text-xl">
+                {{ field }}
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  {% if field.errors %}
+                    <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                  {% endif %}
+                </div>
+              </div>
+              {% if field.errors %}
+                {% for error in field.errors %}
+                  <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                {% endfor %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+  
+        <div>
+          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-900 hover:bg-violet-800 focus:outline-none focus:bg-violet-700">
+            Register
+          </button>
+        </div>
       </form>
-    
+
       {% if messages %}
       <ul>
         {% for message in messages %}
@@ -138,7 +86,7 @@
       </ul>
       {% endif %}
 
-      <p>Already have an account? <a href="{% url 'main:login' %}">Login</a></p>
+      <p>Already have an account? <a class="font-semibold text-violet-700/50 hover:text-violet-700 duration-300" href="{% url 'main:login' %}">Login</a></p>
     </div>
   </div>
 </div>
