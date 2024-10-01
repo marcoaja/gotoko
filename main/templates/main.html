@@ -45,7 +45,7 @@
     <div class="mt-8 space-y-8">
       <h1 class="text-center font-bold text-2xl text-violet-950">All Products</h1>
       {% comment %} Jika tidak ada products {% endcomment %}
-      {% if not mood_entries %}
+      {% if not products %} 
       <div class="flex flex-col items-center justify-center p-6">
           <img src="{% static 'image/noproduct.png' %}" alt="Sad face" width="500" height="500" loading="lazy"/>
           <p class="text-center text-violet-950/80 text-lg md:text-xl font-lg mt-4">Belum ada product yang tersedia.</p>
