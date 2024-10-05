@@ -106,6 +106,7 @@ Tanpa token CSRF, penyerang dapat dengan mudah mengirimkan HTTP request dengan i
 
 ![JSONbyID](image-tugas3/jsonbyid.png)
 
+## TUGAS 4
 
 ###### 1. Apa perbedaan antara HttpResponseRedirect() dan redirect()
 
@@ -332,3 +333,50 @@ def delete_product(request, id):
 13. Pada product card, saya menambahkan delete dan edit dengan masing-masing icon yang sesuai.
 > Navbar
 14. Pada navbar, saya menampilkan hamburger icon untuk ukuran layar mobile. Ketika icon itu diklik, akan muncul sebuah navbar dari samping kanan yang menampilkan nama, fitur aplikasi, dan logout button.
+
+## TUGAS 6
+###### 1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+
+Javascript merupakan salah satu bahasa pemrograman yang populer dan sering dipakai untuk pengembangan aplikasi web. Javascript memiliki banyak manfaat, antara lain
+1. Dapat membuat web menjadi interaktif
+Dengan menggunakan JavaScript, pengembang aplikasi web bisa mengubah tampilan halaman web secara dinamis tanpa harus memuat ulang seluruh halaman, seperti memperbarui konten atau mengirim request data secara asinkronus (AJAX).
+2. Dapat melakukan client side processing
+JavaScript berjalan di sisi client/browser, sehingga dapat mengurangi beban server. Fitur ini sangat berguna untuk fitur seperti validasi input form, memanipulasi DOM (Document Object Model), atau kustom animasi.
+3. Memiliki banyak library
+Karena javascript merupakan bahasa yang populer, terdapat banyak library dan framework yang mendukung/menggunakan bahasa javascript. Contohnya, seperti React, Vue, Angular, dan lain sebagainya. Oleh karena itu pengembang dapat membangun aplikasi web yang responsive dan kompleks dengan lebih cepat dan efisien.
+4. Dapat berjalan pada banyak browser
+JavaScript didukung oleh hampir semua browser, sehingga aplikasi web yang dibuat dengan JavaScript dapat berjalan di berbagai platform tanpa memerlukan instalasi tambahan.
+
+###### 2. Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+
+```fetch()``` adalah salah satu function javascript yang digunakan untuk melakukan request ke API. Ketika menggunakan cara ini, fungsi ```fetch()``` akan mengembalikan sebuah promise, lalu  perlu dilakukan chaining dengan fungsi ```then()``` agar mendapatkan data yang diinginkan. Terdapat cara lain untuk melakukan fetch tanpa menggunakan fungsi ```fetch()```, yaitu dengan menggunakan paradigma asinkron modern seperti async/await. Ketika kita menambahkan await di depan fetch(), itu artinya kita memberitahu javascript untuk menunggu hingga request selesai dan data diterima sebelum melanjutkan eksekusi kode selanjutnya. Jika kita tidak menggunakan await, javascript akan melanjutkan eksekusi kode selanjutnya tanpa menunggu hasil dari fungsi ```fetch()```.Akibatnya, aplikasi web akan memproses data yang belum diterima, sehingga hal ini dapat menghasilkan error atau hasil yang tidak diharapkan.
+
+###### 3. Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+
+Ketika melakukan AJAX POST kita tidak menyertakan token CSRF dalam header request, sehingga server akan menolak request karena tidak ada verifikasi CSRF Token. Dengan menggunakan ```csrf_exempt``` pada fungsi tertentu dalam views.py, pengecekan terhadap CSRF Token akan dinonaktifkan saat melakukan request POST pada fungsi tersebut, sehingga server tidak menolak request meskipun tidak ada token CSRF.
+
+###### 4. Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+
+Terdapat beberapa alasan kenapa pembersihan data input pengguna dilakukan di belakang (backend) juga, yaitu
+1. Keamanan
+User dapat memanipulasi kode di frontend dengan mudah, contohnya melalui alat developer browser. Validasi di frontend saja tidak cukup untuk mencegah input-input berbahaya seperti serangan SQL Injection atau XSS. Melalukan validasi data pada sisi backend akan lebih aman karena user tidak bisa mengakses secara langsung ke database/server. Oleh karena itu, validasi data pada sisi backend sangat penting untuk dilakukan.
+2. Data yang tidak sesuai
+Jika hanya mengandalkan validasi di frontend, ada kemungkinan bahwa user menghindari validasi tersebut dengan memodifikasi request. Oleh karena itu, validasi di backend diperlukan untuk memastikan bahwa hanya data yang benar-benar valid yang dapat masuk ke database atau server.
+
+Jadi, meskipun pembersihan data input pengguna di sisi frontend berguna untuk meningkatkan **user experience**, validasi dan pembersihan data di backend tetap penting untuk menjaga keamanan dan memastikan semua data yang dimasukkan ke database valid.
+
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+
+###### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+> AJAX GET
+1. Pada views.py dan pada function show_main, hapus line ```product_entries = Product.objects.filter(user=request.user)``` dan ```'products': product_entries,```, agar nantinya data product diambil dari show_json dengan melakukan fetch API
+2. Pada function show_json dan show_xml ganti line ```data = Product.objects.all()``` menjadi ```data = MoodEntry.objects.filter(user=request.user) ``` agar data yang ditampilkan hanya milik pengguna yang login
+3, Hapus kode mulai dari ```{% if not products %}``` hingga ```{% endif %}``` dan ganti dengan ```<div id="product_entry_cards"></div>```
+4. Tambahkan script dalam main.html yang di dalamnya berisi async function yang melakukan fecth ke endpoint show_json
+5. Pada script javascript, tambahkan function ```refreshProductEntries()``` yang melakukan refresh data produk secara asinkronus
+> AJAX POST
+6. Pada views.py, tambahkan function baru untuk menambahkan product dengan menggunakan ajax. Tambahkan```@csrf_exempt``` dan ```@require_POST``` sebelum function baru tersebut.
+7. Pada urls.py, tambahkan path untuk function yang sebelumnya dibuat
+8. Pada main.html, tambahkan modal sebagai form untuk menambahkan produk dengan menggunakan ajax
+9. Pada script javascript, tambahkan function ```addProductEntry()``` yang akan melakukan fetch API ke endpoint create-ajax
+10. Tambahkan sebuah eventListener yang memanggil fucntion addProductEntry yang sudah dibuat sebelumnya
