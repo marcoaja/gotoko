@@ -4,24 +4,44 @@
       <div class="flex items-center">
         <h1 class="text-3xl p-4 font-black text-center text-white">GOTOKO.</h1>
       </div>
-      <div class="hidden md:flex items-center">
+      <div class="hidden md:flex items-center space-x-2">
         {% if user.is_authenticated %}
-          <p class="text-white mr-4 text-lg">Selamat Datang, <span class="font-bold">{{ user.username }}</span></p>
-          <a href="{% url 'main:logout' %}" class="text-center bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-            Logout
-          </a>
+        <div class="flex gap-2 justify-center items-center">
+          <div class="text-white text-lg font-bold">{{ user.username }}</div>
+          <div class="w-10 h-10 bg-white rounded-full flex justify-center items-center font-black text-xl text-violet-950">{{ user.username|slice:":1"|upper }}</div>
+        </div>
+        <a
+          href="{% url 'main:logout' %}"
+          class="text-center bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+        >
+          Logout
+        </a>
         {% else %}
-          <a href="{% url 'main:login' %}" class="text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mr-2">
-            Login
-          </a>
-          <a href="{% url 'main:register' %}" class="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-            Register
-          </a>
+        <a
+          href="{% url 'main:login' %}"
+          class="text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mr-2"
+        >
+          Login
+        </a>
+        <a
+          href="{% url 'main:register' %}"
+          class="text-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+        >
+          Register
+        </a>
         {% endif %}
       </div>
       <div class="md:hidden flex items-center">
         <button class="mobile-menu-button">
-          <svg class="w-6 h-6 text-white" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            class="w-6 h-6 text-white"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
@@ -29,13 +49,18 @@
     </div>
   </div>
   <!-- Mobile menu -->
-  <div class="fixed mobile-menu hidden md:hidden h-screen w-1/2 right-0 bg-[#2e1065] px-4 md:max-h-full shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-    <div class="flex flex-col justify-between h-[90%] pt-2 pb-3 space-y-1 mx-auto">
+  <div
+    class="fixed mobile-menu hidden md:hidden h-screen w-1/2 right-0 bg-[#2e1065] px-4 md:max-h-full shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
+  >
+    <div
+      class="flex flex-col justify-between h-[90%] pt-2 pb-3 space-y-1 mx-auto"
+    >
       {% if user.is_authenticated %}
       <div class="space-y-4">
-        <div>
-        <p class="text-white mr-4 text-lg">Selamat Datang, <span class="font-bold">{{ user.username }}</span></p>
-        </div>
+        <div class="flex gap-2 justify-end items-center">
+          <div class="text-white text-lg font-bold">{{ user.username }}</div>
+          <div class="w-10 h-10 bg-white rounded-full flex justify-center items-center font-black text-xl text-violet-950">{{ user.username|slice:":1"|upper }}</div>
+        </div> 
         <div>
           <a href="/">
             <button
@@ -56,25 +81,34 @@
         </div>
       </div>
       <div>
-        <a href="{% url 'main:logout' %}" class="block bottom-0 text-center bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+        <a
+          href="{% url 'main:logout' %}"
+          class="block bottom-0 text-center bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+        >
           Logout
         </a>
       </div>
-    {% else %}
-      <a href="{% url 'main:login' %}" class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2">
+      {% else %}
+      <a
+        href="{% url 'main:login' %}"
+        class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 mb-2"
+      >
         Login
       </a>
-      <a href="{% url 'main:register' %}" class="block text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+      <a
+        href="{% url 'main:register' %}"
+        class="block text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+      >
         Register
       </a>
-    {% endif %}
+      {% endif %}
     </div>
   </div>
   <script>
     let isHidden = true;
     const btn = document.querySelector(".mobile-menu-button");
     const menu = document.querySelector(".mobile-menu");
-    const closeToggle = document.querySelector(".close-toggle")
+    const closeToggle = document.querySelector(".close-toggle");
     btn.addEventListener("click", () => {
       menu.classList.toggle("hidden");
       isHidden = !isHidden;
